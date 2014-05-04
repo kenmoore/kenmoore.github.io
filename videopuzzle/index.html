@@ -3,7 +3,26 @@
 <style>
 
 body {
-  background-color: #666;
+  background-color: #c5d4e5;
+  margin: 50px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+p {
+  margin: 10px auto 40px auto;
+  text-align: center;
+  width: 500px;
+}
+
+#container {
+  position: relative;
+  width: 500px;
+  height: 400px;
+  margin: 0 auto;
 }
 
 canvas {
@@ -17,27 +36,27 @@ canvas {
 }
 
 canvas[col="1"] {
-  left: 120px;
+  left: 125px;
 }
 
 canvas[col="2"] {
-  left: 240px;
+  left: 250px;
 }
 
 canvas[col="3"] {
-  left: 360px;
+  left: 375px;
 }
 
 canvas[row="1"] {
-  top: 80px;
+  top: 85px;
 }
 
 canvas[row="2"] {
-  top: 160px;
+  top: 170px;
 }
 
 canvas[row="3"] {
-  top: 240px;
+  top: 255px;
 }
 
 #canvas16 {
@@ -204,22 +223,30 @@ function randomize() {
 <video id="video" autoplay loop width="480" height="360">
     <source src="video.webm" type="video/webm">
 </video>
-<!--iframe width="560" height="315" src="http://www.youtube.com/embed/XtxzYu0itFU?autoplay=1&loop=1&playlist=XtxzYu0itFU&controls=0"></iframe-->
-<canvas id="canvas1" width="120" height="80" row=0 col=0></canvas>
-<canvas id="canvas2" width="120" height="80" row=0 col=1></canvas>
-<canvas id="canvas3" width="120" height="80" row=0 col=2></canvas>
-<canvas id="canvas4" width="120" height="80" row=0 col=3></canvas>
-<canvas id="canvas5" width="120" height="80" row=1 col=0></canvas>
-<canvas id="canvas6" width="120" height="80" row=1 col=1></canvas>
-<canvas id="canvas7" width="120" height="80" row=1 col=2></canvas>
-<canvas id="canvas8" width="120" height="80" row=1 col=3></canvas>
-<canvas id="canvas9" width="120" height="80" row=2 col=0></canvas>
-<canvas id="canvas10" width="120" height="80" row=2 col=1></canvas>
-<canvas id="canvas11" width="120" height="80" row=2 col=2></canvas>
-<canvas id="canvas12" width="120" height="80" row=2 col=3></canvas>
-<canvas id="canvas13" width="120" height="80" row=3 col=0></canvas>
-<canvas id="canvas14" width="120" height="80" row=3 col=1></canvas>
-<canvas id="canvas15" width="120" height="80" row=3 col=2></canvas>
-<canvas id="canvas16" width="120" height="80" row=3 col=3></canvas>
+
+<h1>Video 15 Puzzle</h1>
+<p>Move the video tiles into the proper positions.</p>
+
+<div id='container'>
+  <canvas id="canvas1" width="120" height="80" row=0 col=0></canvas>
+  <canvas id="canvas2" width="120" height="80" row=0 col=1></canvas>
+  <canvas id="canvas3" width="120" height="80" row=0 col=2></canvas>
+  <canvas id="canvas4" width="120" height="80" row=0 col=3></canvas>
+  <canvas id="canvas5" width="120" height="80" row=1 col=0></canvas>
+  <canvas id="canvas6" width="120" height="80" row=1 col=1></canvas>
+  <canvas id="canvas7" width="120" height="80" row=1 col=2></canvas>
+  <canvas id="canvas8" width="120" height="80" row=1 col=3></canvas>
+  <canvas id="canvas9" width="120" height="80" row=2 col=0></canvas>
+  <canvas id="canvas10" width="120" height="80" row=2 col=1></canvas>
+  <canvas id="canvas11" width="120" height="80" row=2 col=2></canvas>
+  <canvas id="canvas12" width="120" height="80" row=2 col=3></canvas>
+  <canvas id="canvas13" width="120" height="80" row=3 col=0></canvas>
+  <canvas id="canvas14" width="120" height="80" row=3 col=1></canvas>
+  <canvas id="canvas15" width="120" height="80" row=3 col=2></canvas>
+  <canvas id="canvas16" width="120" height="80" row=3 col=3></canvas>
+</div>
+
+<p>NOTE: I haven't written the code yet to ensure that the initial random ordering is actually solvable (sometimes the last 3 tiles are in the wrong order and can't be swapped).  If you know how to do this, drop me a line at ken&nbsp;(at)&nbsp;kenmooredesign.com.</p>
+
 </body>
 </html>
