@@ -1,0 +1,225 @@
+<html>
+<head>
+<style>
+
+body {
+  background-color: #666;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 8px;
+  border: 2px solid rgba(0,0,0,0.3);
+  -webkit-transition: all 200ms ease;
+  cursor: hand;
+}
+
+canvas[col="1"] {
+  left: 120px;
+}
+
+canvas[col="2"] {
+  left: 240px;
+}
+
+canvas[col="3"] {
+  left: 360px;
+}
+
+canvas[row="1"] {
+  top: 80px;
+}
+
+canvas[row="2"] {
+  top: 160px;
+}
+
+canvas[row="3"] {
+  top: 240px;
+}
+
+#canvas16 {
+  visibility: hidden;
+  cursor: default;
+}
+
+#video {
+  display: none;
+}
+
+</style>
+</head>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    randomize();
+    var video = document.getElementById('video');
+    var canvas1 = document.getElementById('canvas1');
+    var canvas2 = document.getElementById('canvas2');
+    var canvas3 = document.getElementById('canvas3');
+    var canvas4 = document.getElementById('canvas4');
+    var canvas5 = document.getElementById('canvas5');
+    var canvas6 = document.getElementById('canvas6');
+    var canvas7 = document.getElementById('canvas7');
+    var canvas8 = document.getElementById('canvas8');
+    var canvas9 = document.getElementById('canvas9');
+    var canvas10 = document.getElementById('canvas10');
+    var canvas11 = document.getElementById('canvas11');
+    var canvas12 = document.getElementById('canvas12');
+    var canvas13 = document.getElementById('canvas13');
+    var canvas14 = document.getElementById('canvas14');
+    var canvas15 = document.getElementById('canvas15');
+    var canvas16 = document.getElementById('canvas16');
+    var context1 = canvas1.getContext('2d');
+    var context2 = canvas2.getContext('2d');
+    var context3 = canvas3.getContext('2d');
+    var context4 = canvas4.getContext('2d');
+    var context5 = canvas5.getContext('2d');
+    var context6 = canvas6.getContext('2d');
+    var context7 = canvas7.getContext('2d');
+    var context8 = canvas8.getContext('2d');
+    var context9 = canvas9.getContext('2d');
+    var context10 = canvas10.getContext('2d');
+    var context11 = canvas11.getContext('2d');
+    var context12 = canvas12.getContext('2d');
+    var context13 = canvas13.getContext('2d');
+    var context14 = canvas14.getContext('2d');
+    var context15 = canvas15.getContext('2d');
+    var context16 = canvas16.getContext('2d');
+    
+    canvas1.addEventListener('mousedown', handleClick);
+    canvas2.addEventListener('mousedown', handleClick);
+    canvas3.addEventListener('mousedown', handleClick);
+    canvas4.addEventListener('mousedown', handleClick);
+    canvas5.addEventListener('mousedown', handleClick);
+    canvas6.addEventListener('mousedown', handleClick);
+    canvas7.addEventListener('mousedown', handleClick);
+    canvas8.addEventListener('mousedown', handleClick);
+    canvas9.addEventListener('mousedown', handleClick);
+    canvas10.addEventListener('mousedown', handleClick);
+    canvas11.addEventListener('mousedown', handleClick);
+    canvas12.addEventListener('mousedown', handleClick);
+    canvas13.addEventListener('mousedown', handleClick);
+    canvas14.addEventListener('mousedown', handleClick);
+    canvas15.addEventListener('mousedown', handleClick);
+//    canvas16.addEventListener('mousedown', handleClick);  NO MOUSE CLICK FOR BLANK!
+
+    video.addEventListener('play', function(){
+        draw(this,context1, context2, context3, context4, context5, context6, context7, context8, context9, context10, context11, context12, context13, context14, context15, context16);
+    },false);
+
+},false);
+
+function draw(v, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16) {
+    if(v.paused || v.ended) return false;
+    c1.drawImage(v,0,0);
+    c2.drawImage(v,-120,0);
+    c3.drawImage(v,-240,0);
+    c4.drawImage(v,-360,0);
+    c5.drawImage(v,0,-80);
+    c6.drawImage(v,-120,-80);
+    c7.drawImage(v,-240,-80);
+    c8.drawImage(v,-360,-80);
+    c9.drawImage(v,0,-160);
+    c10.drawImage(v,-120,-160);
+    c11.drawImage(v,-240,-160);
+    c12.drawImage(v,-360,-160);
+    c13.drawImage(v,0,-240);
+    c14.drawImage(v,-120,-240);
+    c15.drawImage(v,-240,-240);
+    c16.drawImage(v,-360,-240);
+    setTimeout(draw, 20, v, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16);
+}
+
+function handleClick(event) {
+  blank = document.getElementById("canvas16");
+  blankrow = blank.getAttribute("row");
+  blankcol = blank.getAttribute("col");
+  
+  row = event.target.getAttribute("row");
+  col = event.target.getAttribute("col");
+  
+  if (row == blankrow) {
+    increment = col < blankcol ? 1 : -1;
+    for (var i = parseInt(blankcol) - increment; i != parseInt(col) - increment; i -= increment) {
+      tile = getTile(row, i);
+      tile.setAttribute("col", i + increment); 
+    }
+    
+    blank.setAttribute("row", row);
+    blank.setAttribute("col", col);
+  } else if (col == blankcol) {
+    increment = row < blankrow ? 1 : -1;
+    for (var i = parseInt(blankrow) - increment; i != parseInt(row) - increment; i -= increment) {
+      tile = getTile(i, col);
+      tile.setAttribute("row", i + increment); 
+    }
+    
+    blank.setAttribute("row", row);
+    blank.setAttribute("col", col);
+  }
+  
+  if (checkForWin()) {
+    document.body.style.backgroundColor = "red";
+  }
+}
+
+function checkForWin() {
+  for (var i = 0; i < 16; i++) {
+    row = Math.floor(i / 4);
+    col = i % 4;
+ 
+    canvas = document.getElementById("canvas" + (i + 1));
+    if (canvas.getAttribute("row") != row) return false;
+    if (canvas.getAttribute("col") != col) return false;
+  }
+  return true;
+}
+
+function getTile(row, col) {
+  for (var i = 1; i <= 16; i++) {
+    canvas = document.getElementById("canvas" + i);
+    if (canvas.getAttribute("row") == row && canvas.getAttribute("col") == col) {
+      return canvas;
+    }
+  }
+  
+  return null;
+}
+
+function randomize() {
+  canvases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+    for (i = 0; i < 16; i++) {
+    index = Math.floor(Math.random()*canvases.length);
+    num = canvases.splice(index, 1)[0];
+    canvas = document.getElementById("canvas" + num);
+    canvas.setAttribute("row", Math.floor(i / 4));
+    canvas.setAttribute("col", i % 4);
+  }
+}
+
+</script>
+<body>
+<video id="video" autoplay loop width="480" height="360">
+    <source src="video.webm" type="video/webm">
+</video>
+<!--iframe width="560" height="315" src="http://www.youtube.com/embed/XtxzYu0itFU?autoplay=1&loop=1&playlist=XtxzYu0itFU&controls=0"></iframe-->
+<canvas id="canvas1" width="120" height="80" row=0 col=0></canvas>
+<canvas id="canvas2" width="120" height="80" row=0 col=1></canvas>
+<canvas id="canvas3" width="120" height="80" row=0 col=2></canvas>
+<canvas id="canvas4" width="120" height="80" row=0 col=3></canvas>
+<canvas id="canvas5" width="120" height="80" row=1 col=0></canvas>
+<canvas id="canvas6" width="120" height="80" row=1 col=1></canvas>
+<canvas id="canvas7" width="120" height="80" row=1 col=2></canvas>
+<canvas id="canvas8" width="120" height="80" row=1 col=3></canvas>
+<canvas id="canvas9" width="120" height="80" row=2 col=0></canvas>
+<canvas id="canvas10" width="120" height="80" row=2 col=1></canvas>
+<canvas id="canvas11" width="120" height="80" row=2 col=2></canvas>
+<canvas id="canvas12" width="120" height="80" row=2 col=3></canvas>
+<canvas id="canvas13" width="120" height="80" row=3 col=0></canvas>
+<canvas id="canvas14" width="120" height="80" row=3 col=1></canvas>
+<canvas id="canvas15" width="120" height="80" row=3 col=2></canvas>
+<canvas id="canvas16" width="120" height="80" row=3 col=3></canvas>
+</body>
+</html>
